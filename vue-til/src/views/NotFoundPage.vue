@@ -1,9 +1,11 @@
 <template>
   <div>
-    login
+    Page is not found
   </div>
 </template>
+
 <script>
 export default {};
 </script>
-<style lang=""></style>
+
+<style></style>
