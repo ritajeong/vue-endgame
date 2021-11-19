@@ -1,19 +1,31 @@
 <template>
-  <form v-on:submit.prevent="submitForm">
-    <div>
-      <label for="username">id:</label>
-      <input id="username" type="text" v-model="username" />
+  <div class="contents">
+    <div class="form-wrapper form-wrapper-sm">
+      <form @submit.prevent="submitForm" class="form">
+        <div>
+          <label for="username">id:</label>
+          <input id="username" type="text" v-model="username" />
+          <p class="validation-text">
+            <span class="warning" v-if="!isUsernameValid && username">
+              Please enter an email address
+            </span>
+          </p>
+        </div>
+        <div>
+          <label for="password">pw:</label>
+          <input id="password" type="text" v-model="password" />
+        </div>
+        <button
+          :disabled="!isUsernameValid || !password"
+          type="submit"
+          class="btn"
+        >
+          로그인
+        </button>
+      </form>
+      <p class="log">{{ logMessage }}</p>
     </div>
-    <div>
-      <label for="password">pw:</label>
-      <input id="password" type="text" v-model="password" />
-    </div>
-    <button v-bind:disabled="!isUsernameValid || !password" type="submit">
-      로그인
-    </button>
-    <p>{{ isUsernameValid ? '' : '이메일 형식으로 입력해주세요' }}</p>
-    <p>{{ logMessage }}</p>
-  </form>
+  </div>
 </template>
 <script>
 import { loginUser } from '@/api/index';
@@ -43,8 +55,10 @@ export default {
           password: this.password,
         };
         const { data } = await loginUser(userData);
-        console.log(data);
-        this.logMessage = `${data.user.username}님 환영합니다`;
+        console.log(data.user.username);
+        this.$router.push('/main'); //로그인 후 메인페이지로 이동
+
+        // this.logMessage = `${data.user.username}님 환영합니다`;
       } catch (error) {
         console.log(error.response);
         this.logMessage = '로그인에 실패했습니다.';
@@ -59,4 +73,8 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+.btn {
+  color: white;
+}
+</style>
