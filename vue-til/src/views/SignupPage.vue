@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>회원가입 페이지</h1>
     <signup-form></signup-form>
   </div>
 </template>
@@ -10,4 +9,4 @@ export default {
   components: { SignupForm },
 };
 </script>
-<style lang=""></style>
+<style></style>
