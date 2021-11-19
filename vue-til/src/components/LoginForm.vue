@@ -28,7 +28,6 @@
   </div>
 </template>
 <script>
-import { loginUser } from '@/api/index';
 import { validateEmail } from '@/utils/validation';
 export default {
   data() {
@@ -54,15 +53,8 @@ export default {
           username: this.username,
           password: this.password,
         };
-        const { data } = await loginUser(userData);
-        console.log(data.user.username);
-        console.log(data.token);
-        this.$store.commit('setToken', data.token);
-
-        this.$store.commit('setUsername', data.user.username);
+        await this.$store.dispatch('LOGIN', userData); //await 꼭!!
         this.$router.push('/main'); //로그인 후 메인페이지로 이동
-
-        // this.logMessage = `${data.user.username}님 환영합니다`;
       } catch (error) {
         console.log(error.response);
         this.logMessage = '로그인에 실패했습니다.';
