@@ -4,6 +4,7 @@
       <h1 class="page-header">Today I Learned</h1>
       <div v-if="isLoading">
         Loading...
+        <LoadingSpinner vi-if="isLoading"></LoadingSpinner>
       </div>
       <ul>
         <postListItem
@@ -19,8 +20,9 @@
 <script>
 import { fetchPosts } from '@/api/index';
 import PostListItem from '../components/posts/PostListItem.vue';
+import LoadingSpinner from '../components/common/LoadingSpinner.vue';
 export default {
-  components: { PostListItem },
+  components: { PostListItem, LoadingSpinner },
   data() {
     return {
       postItems: [],
